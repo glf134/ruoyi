@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.datasync.mapper.VirtualMachineMapper">
+    
+    <resultMap type="VirtualMachine" id="VirtualMachineResult">
+        <result property="id"    column="id"    />
+        <result property="belongsServer"    column="belongs_server"    />
+        <result property="brandLand"    column="brand_land"    />
+        <result property="facilityCategory"    column="facility_category"    />
+        <result property="facilityDescriptor"    column="facility_descriptor"    />
+        <result property="facilityName"    column="facility_name"    />
+        <result property="facilityOwnershipAgency"    column="facility_ownership_agency"    />
+        <result property="facilityUpdateDate"    column="facility_update_date"    />
+        <result property="facilityUseDate"    column="facility_use_date"    />
+        <result property="facilityUseState"    column="facility_use_state"    />
+        <result property="influenceCustomer"    column="influence_customer"    />
+        <result property="remarksInformation"    column="remarks_information"    />
+        <result property="systemName"    column="system_name"    />
+        <result property="virtualMachineCpuInformation"    column="virtual_machine_cpu_information"    />
+        <result property="virtualMachineHarddiskSize"    column="virtual_machine_harddisk_size"    />
+        <result property="virtualMachineMemorySize"    column="virtual_machine_memory_size"    />
+        <result property="virtualizationSoftwarePlatform"    column="virtualization_software_platform"    />
+        <result property="vmManagementPlatform"    column="vm_management_platform"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectVirtualMachineVo">
+        select id, belongs_server, brand_land, facility_category, facility_descriptor, facility_name, facility_ownership_agency, facility_update_date, facility_use_date, facility_use_state, influence_customer, remarks_information, system_name, virtual_machine_cpu_information, virtual_machine_harddisk_size, virtual_machine_memory_size, virtualization_software_platform, vm_management_platform, status, del_flag, create_by, create_time, update_by, update_time from virtual_machine
+    </sql>
+
+    <select id="selectVirtualMachineList" parameterType="VirtualMachine" resultMap="VirtualMachineResult">
+        <include refid="selectVirtualMachineVo"/>
+        <where>  
+            <if test="facilityDescriptor != null  and facilityDescriptor != ''"> and facility_descriptor = #{facilityDescriptor}</if>
+            <if test="facilityName != null  and facilityName != ''"> and facility_name like concat('%', #{facilityName}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectVirtualMachineById" parameterType="Long" resultMap="VirtualMachineResult">
+        <include refid="selectVirtualMachineVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertVirtualMachine" parameterType="VirtualMachine" useGeneratedKeys="true" keyProperty="id">
+        insert into virtual_machine
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="belongsServer != null">belongs_server,</if>
+            <if test="brandLand != null">brand_land,</if>
+            <if test="facilityCategory != null">facility_category,</if>
+            <if test="facilityDescriptor != null">facility_descriptor,</if>
+            <if test="facilityName != null">facility_name,</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency,</if>
+            <if test="facilityUpdateDate != null">facility_update_date,</if>
+            <if test="facilityUseDate != null">facility_use_date,</if>
+            <if test="facilityUseState != null">facility_use_state,</if>
+            <if test="influenceCustomer != null">influence_customer,</if>
+            <if test="remarksInformation != null">remarks_information,</if>
+            <if test="systemName != null">system_name,</if>
+            <if test="virtualMachineCpuInformation != null">virtual_machine_cpu_information,</if>
+            <if test="virtualMachineHarddiskSize != null">virtual_machine_harddisk_size,</if>
+            <if test="virtualMachineMemorySize != null">virtual_machine_memory_size,</if>
+            <if test="virtualizationSoftwarePlatform != null">virtualization_software_platform,</if>
+            <if test="vmManagementPlatform != null">vm_management_platform,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="belongsServer != null">#{belongsServer},</if>
+            <if test="brandLand != null">#{brandLand},</if>
+            <if test="facilityCategory != null">#{facilityCategory},</if>
+            <if test="facilityDescriptor != null">#{facilityDescriptor},</if>
+            <if test="facilityName != null">#{facilityName},</if>
+            <if test="facilityOwnershipAgency != null">#{facilityOwnershipAgency},</if>
+            <if test="facilityUpdateDate != null">#{facilityUpdateDate},</if>
+            <if test="facilityUseDate != null">#{facilityUseDate},</if>
+            <if test="facilityUseState != null">#{facilityUseState},</if>
+            <if test="influenceCustomer != null">#{influenceCustomer},</if>
+            <if test="remarksInformation != null">#{remarksInformation},</if>
+            <if test="systemName != null">#{systemName},</if>
+            <if test="virtualMachineCpuInformation != null">#{virtualMachineCpuInformation},</if>
+            <if test="virtualMachineHarddiskSize != null">#{virtualMachineHarddiskSize},</if>
+            <if test="virtualMachineMemorySize != null">#{virtualMachineMemorySize},</if>
+            <if test="virtualizationSoftwarePlatform != null">#{virtualizationSoftwarePlatform},</if>
+            <if test="vmManagementPlatform != null">#{vmManagementPlatform},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVirtualMachine" parameterType="VirtualMachine">
+        update virtual_machine
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="belongsServer != null">belongs_server = #{belongsServer},</if>
+            <if test="brandLand != null">brand_land = #{brandLand},</if>
+            <if test="facilityCategory != null">facility_category = #{facilityCategory},</if>
+            <if test="facilityDescriptor != null">facility_descriptor = #{facilityDescriptor},</if>
+            <if test="facilityName != null">facility_name = #{facilityName},</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency = #{facilityOwnershipAgency},</if>
+            <if test="facilityUpdateDate != null">facility_update_date = #{facilityUpdateDate},</if>
+            <if test="facilityUseDate != null">facility_use_date = #{facilityUseDate},</if>
+            <if test="facilityUseState != null">facility_use_state = #{facilityUseState},</if>
+            <if test="influenceCustomer != null">influence_customer = #{influenceCustomer},</if>
+            <if test="remarksInformation != null">remarks_information = #{remarksInformation},</if>
+            <if test="systemName != null">system_name = #{systemName},</if>
+            <if test="virtualMachineCpuInformation != null">virtual_machine_cpu_information = #{virtualMachineCpuInformation},</if>
+            <if test="virtualMachineHarddiskSize != null">virtual_machine_harddisk_size = #{virtualMachineHarddiskSize},</if>
+            <if test="virtualMachineMemorySize != null">virtual_machine_memory_size = #{virtualMachineMemorySize},</if>
+            <if test="virtualizationSoftwarePlatform != null">virtualization_software_platform = #{virtualizationSoftwarePlatform},</if>
+            <if test="vmManagementPlatform != null">vm_management_platform = #{vmManagementPlatform},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteVirtualMachineById" parameterType="Long">
+        delete from virtual_machine where id = #{id}
+    </delete>
+
+    <delete id="deleteVirtualMachineByIds" parameterType="String">
+        delete from virtual_machine where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

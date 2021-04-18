@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改虚拟机资源')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-machine-edit" th:object="${virtualMachine}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">虚拟机宿主机分类：</label>
+                <div class="col-sm-8">
+                    <input name="belongsServer" th:field="*{belongsServer}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">软件平台品牌属地：</label>
+                <div class="col-sm-8">
+                    <input name="brandLand" th:field="*{brandLand}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施分类标识符：</label>
+                <div class="col-sm-8">
+                    <input name="facilityCategory" th:field="*{facilityCategory}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施标识符：</label>
+                <div class="col-sm-8">
+                    <input name="facilityDescriptor" th:field="*{facilityDescriptor}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施名称：</label>
+                <div class="col-sm-8">
+                    <input name="facilityName" th:field="*{facilityName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施归属机构：</label>
+                <div class="col-sm-8">
+                    <input name="facilityOwnershipAgency" th:field="*{facilityOwnershipAgency}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施信息更新日期：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="facilityUpdateDate" th:value="${#dates.format(virtualMachine.facilityUpdateDate, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施投产日期：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="facilityUseDate" th:value="${#dates.format(virtualMachine.facilityUseDate, 'yyyy-MM-dd')}" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施在用状态：</label>
+                <div class="col-sm-8">
+                    <input name="facilityUseState" th:field="*{facilityUseState}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">影响客户：</label>
+                <div class="col-sm-8">
+                    <input name="influenceCustomer" th:field="*{influenceCustomer}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">备注信息：</label>
+                <div class="col-sm-8">
+                    <input name="remarksInformation" th:field="*{remarksInformation}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">所属系统名称：</label>
+                <div class="col-sm-8">
+                    <input name="systemName" th:field="*{systemName}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">虚拟CPU信息：</label>
+                <div class="col-sm-8">
+                    <input name="virtualMachineCpuInformation" th:field="*{virtualMachineCpuInformation}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">虚拟硬盘大小：</label>
+                <div class="col-sm-8">
+                    <input name="virtualMachineHarddiskSize" th:field="*{virtualMachineHarddiskSize}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">虚拟内存大小：</label>
+                <div class="col-sm-8">
+                    <input name="virtualMachineMemorySize" th:field="*{virtualMachineMemorySize}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">虚拟化软件平台：</label>
+                <div class="col-sm-8">
+                    <input name="virtualizationSoftwarePlatform" th:field="*{virtualizationSoftwarePlatform}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">虚拟机管理平台：</label>
+                <div class="col-sm-8">
+                    <input name="vmManagementPlatform" th:field="*{vmManagementPlatform}" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">状态：</label>
+                <div class="col-sm-8">
+                    <div class="radio-box">
+                        <input type="radio" name="status" value="">
+                        <label th:for="status" th:text="未知"></label>
+                    </div>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script th:inline="javascript">
+        var prefix = ctx + "datasync/machine";
+        $("#form-machine-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-machine-edit').serialize());
+            }
+        }
+
+        $("input[name='facilityUpdateDate']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        $("input[name='facilityUseDate']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>

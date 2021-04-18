@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.datasync.mapper.PowerSupplyRelationMapper">
+    
+    <resultMap type="PowerSupplyRelation" id="PowerSupplyRelationResult">
+        <result property="id"    column="id"    />
+        <result property="facilityCategory"    column="facility_category"    />
+        <result property="facilityOwnershipAgency"    column="facility_ownership_agency"    />
+        <result property="powerSupplyAsset"    column="power_supply_asset"    />
+        <result property="powerSupplyAssetCategory"    column="power_supply_asset_category"    />
+        <result property="powerUsedAsset"    column="power_used_asset"    />
+        <result property="powerUsedAssetCategory"    column="power_used_asset_category"    />
+        <result property="relationalIdentifier"    column="relational_identifier"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectPowerSupplyRelationVo">
+        select id, facility_category, facility_ownership_agency, power_supply_asset, power_supply_asset_category, power_used_asset, power_used_asset_category, relational_identifier, status, del_flag, create_by, create_time, update_by, update_time from power_supply_relation
+    </sql>
+
+    <select id="selectPowerSupplyRelationList" parameterType="PowerSupplyRelation" resultMap="PowerSupplyRelationResult">
+        <include refid="selectPowerSupplyRelationVo"/>
+        <where>  
+            <if test="facilityCategory != null  and facilityCategory != ''"> and facility_category = #{facilityCategory}</if>
+        </where>
+    </select>
+    
+    <select id="selectPowerSupplyRelationById" parameterType="Long" resultMap="PowerSupplyRelationResult">
+        <include refid="selectPowerSupplyRelationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertPowerSupplyRelation" parameterType="PowerSupplyRelation" useGeneratedKeys="true" keyProperty="id">
+        insert into power_supply_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="facilityCategory != null">facility_category,</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency,</if>
+            <if test="powerSupplyAsset != null">power_supply_asset,</if>
+            <if test="powerSupplyAssetCategory != null">power_supply_asset_category,</if>
+            <if test="powerUsedAsset != null">power_used_asset,</if>
+            <if test="powerUsedAssetCategory != null">power_used_asset_category,</if>
+            <if test="relationalIdentifier != null">relational_identifier,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="facilityCategory != null">#{facilityCategory},</if>
+            <if test="facilityOwnershipAgency != null">#{facilityOwnershipAgency},</if>
+            <if test="powerSupplyAsset != null">#{powerSupplyAsset},</if>
+            <if test="powerSupplyAssetCategory != null">#{powerSupplyAssetCategory},</if>
+            <if test="powerUsedAsset != null">#{powerUsedAsset},</if>
+            <if test="powerUsedAssetCategory != null">#{powerUsedAssetCategory},</if>
+            <if test="relationalIdentifier != null">#{relationalIdentifier},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updatePowerSupplyRelation" parameterType="PowerSupplyRelation">
+        update power_supply_relation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="facilityCategory != null">facility_category = #{facilityCategory},</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency = #{facilityOwnershipAgency},</if>
+            <if test="powerSupplyAsset != null">power_supply_asset = #{powerSupplyAsset},</if>
+            <if test="powerSupplyAssetCategory != null">power_supply_asset_category = #{powerSupplyAssetCategory},</if>
+            <if test="powerUsedAsset != null">power_used_asset = #{powerUsedAsset},</if>
+            <if test="powerUsedAssetCategory != null">power_used_asset_category = #{powerUsedAssetCategory},</if>
+            <if test="relationalIdentifier != null">relational_identifier = #{relationalIdentifier},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deletePowerSupplyRelationById" parameterType="Long">
+        delete from power_supply_relation where id = #{id}
+    </delete>
+
+    <delete id="deletePowerSupplyRelationByIds" parameterType="String">
+        delete from power_supply_relation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.datasync.mapper.UninterruptedMapper">
+    
+    <resultMap type="Uninterrupted" id="UninterruptedResult">
+        <result property="id"    column="id"    />
+        <result property="administrativeDepartment"    column="administrative_department"    />
+        <result property="assetBrand"    column="asset_brand"    />
+        <result property="assetCode"    column="asset_code"    />
+        <result property="assetSerialNumber"    column="asset_serial_number"    />
+        <result property="assetType"    column="asset_type"    />
+        <result property="assetValue"    column="asset_value"    />
+        <result property="backupPowerSupply"    column="backup_power_supply"    />
+        <result property="batteryType"    column="battery_type"    />
+        <result property="brandLand"    column="brand_land"    />
+        <result property="communicationProtocol"    column="communication_protocol"    />
+        <result property="deployArea"    column="deploy_area"    />
+        <result property="deployComputerRoom"    column="deploy_computer_room"    />
+        <result property="deployDb"    column="deploy_db"    />
+        <result property="deployFloor"    column="deploy_floor"    />
+        <result property="deployGallery"    column="deploy_gallery"    />
+        <result property="facilityCategory"    column="facility_category"    />
+        <result property="facilityDescriptor"    column="facility_descriptor"    />
+        <result property="facilityName"    column="facility_name"    />
+        <result property="facilityOwnershipAgency"    column="facility_ownership_agency"    />
+        <result property="facilityUpdateDate"    column="facility_update_date"    />
+        <result property="facilityUseDate"    column="facility_use_date"    />
+        <result property="facilityUseState"    column="facility_use_state"    />
+        <result property="maintenanceCause"    column="maintenance_cause"    />
+        <result property="maintenanceResults"    column="maintenance_results"    />
+        <result property="maintenanceTime"    column="maintenance_time"    />
+        <result property="numberOfBatteries"    column="number_of_batteries"    />
+        <result property="operationDepartment"    column="operation_department"    />
+        <result property="ratedAlternatingFrequency"    column="rated_alternating_frequency"    />
+        <result property="ratedInputCurrent"    column="rated_input_current"    />
+        <result property="ratedInputPower"    column="rated_input_power"    />
+        <result property="ratedInputVoltage"    column="rated_input_voltage"    />
+        <result property="ratedOutputCurrent"    column="rated_output_current"    />
+        <result property="ratedOutputPower"    column="rated_output_power"    />
+        <result property="ratedOutputVoltage"    column="rated_output_voltage"    />
+        <result property="remarksInformation"    column="remarks_information"    />
+        <result property="serviceEndTime"    column="service_end_time"    />
+        <result property="serviceLevel"    column="service_level"    />
+        <result property="serviceProvider"    column="service_provider"    />
+        <result property="serviceStartTime"    column="service_start_time"    />
+        <result property="typeOfUninterruptibleMainsPowerModule"    column="type_of_uninterruptible_mains_power_module"    />
+        <result property="uninterruptibleMainsType"    column="uninterruptible_mains_type"    />
+        <result property="upsParallelSystem"    column="ups_parallel_system"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectUninterruptedVo">
+        select id, administrative_department, asset_brand, asset_code, asset_serial_number, asset_type, asset_value, backup_power_supply, battery_type, brand_land, communication_protocol, deploy_area, deploy_computer_room, deploy_db, deploy_floor, deploy_gallery, facility_category, facility_descriptor, facility_name, facility_ownership_agency, facility_update_date, facility_use_date, facility_use_state, maintenance_cause, maintenance_results, maintenance_time, number_of_batteries, operation_department, rated_alternating_frequency, rated_input_current, rated_input_power, rated_input_voltage, rated_output_current, rated_output_power, rated_output_voltage, remarks_information, service_end_time, service_level, service_provider, service_start_time, type_of_uninterruptible_mains_power_module, uninterruptible_mains_type, ups_parallel_system, status, del_flag, create_by, create_time, update_by, update_time from uninterrupted
+    </sql>
+
+    <select id="selectUninterruptedList" parameterType="Uninterrupted" resultMap="UninterruptedResult">
+        <include refid="selectUninterruptedVo"/>
+        <where>  
+            <if test="facilityDescriptor != null  and facilityDescriptor != ''"> and facility_descriptor = #{facilityDescriptor}</if>
+            <if test="facilityName != null  and facilityName != ''"> and facility_name like concat('%', #{facilityName}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectUninterruptedById" parameterType="Long" resultMap="UninterruptedResult">
+        <include refid="selectUninterruptedVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertUninterrupted" parameterType="Uninterrupted" useGeneratedKeys="true" keyProperty="id">
+        insert into uninterrupted
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="administrativeDepartment != null">administrative_department,</if>
+            <if test="assetBrand != null">asset_brand,</if>
+            <if test="assetCode != null">asset_code,</if>
+            <if test="assetSerialNumber != null">asset_serial_number,</if>
+            <if test="assetType != null">asset_type,</if>
+            <if test="assetValue != null">asset_value,</if>
+            <if test="backupPowerSupply != null">backup_power_supply,</if>
+            <if test="batteryType != null">battery_type,</if>
+            <if test="brandLand != null">brand_land,</if>
+            <if test="communicationProtocol != null">communication_protocol,</if>
+            <if test="deployArea != null">deploy_area,</if>
+            <if test="deployComputerRoom != null">deploy_computer_room,</if>
+            <if test="deployDb != null">deploy_db,</if>
+            <if test="deployFloor != null">deploy_floor,</if>
+            <if test="deployGallery != null">deploy_gallery,</if>
+            <if test="facilityCategory != null">facility_category,</if>
+            <if test="facilityDescriptor != null">facility_descriptor,</if>
+            <if test="facilityName != null">facility_name,</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency,</if>
+            <if test="facilityUpdateDate != null">facility_update_date,</if>
+            <if test="facilityUseDate != null">facility_use_date,</if>
+            <if test="facilityUseState != null">facility_use_state,</if>
+            <if test="maintenanceCause != null">maintenance_cause,</if>
+            <if test="maintenanceResults != null">maintenance_results,</if>
+            <if test="maintenanceTime != null">maintenance_time,</if>
+            <if test="numberOfBatteries != null">number_of_batteries,</if>
+            <if test="operationDepartment != null">operation_department,</if>
+            <if test="ratedAlternatingFrequency != null">rated_alternating_frequency,</if>
+            <if test="ratedInputCurrent != null">rated_input_current,</if>
+            <if test="ratedInputPower != null">rated_input_power,</if>
+            <if test="ratedInputVoltage != null">rated_input_voltage,</if>
+            <if test="ratedOutputCurrent != null">rated_output_current,</if>
+            <if test="ratedOutputPower != null">rated_output_power,</if>
+            <if test="ratedOutputVoltage != null">rated_output_voltage,</if>
+            <if test="remarksInformation != null">remarks_information,</if>
+            <if test="serviceEndTime != null">service_end_time,</if>
+            <if test="serviceLevel != null">service_level,</if>
+            <if test="serviceProvider != null">service_provider,</if>
+            <if test="serviceStartTime != null">service_start_time,</if>
+            <if test="typeOfUninterruptibleMainsPowerModule != null">type_of_uninterruptible_mains_power_module,</if>
+            <if test="uninterruptibleMainsType != null">uninterruptible_mains_type,</if>
+            <if test="upsParallelSystem != null">ups_parallel_system,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="administrativeDepartment != null">#{administrativeDepartment},</if>
+            <if test="assetBrand != null">#{assetBrand},</if>
+            <if test="assetCode != null">#{assetCode},</if>
+            <if test="assetSerialNumber != null">#{assetSerialNumber},</if>
+            <if test="assetType != null">#{assetType},</if>
+            <if test="assetValue != null">#{assetValue},</if>
+            <if test="backupPowerSupply != null">#{backupPowerSupply},</if>
+            <if test="batteryType != null">#{batteryType},</if>
+            <if test="brandLand != null">#{brandLand},</if>
+            <if test="communicationProtocol != null">#{communicationProtocol},</if>
+            <if test="deployArea != null">#{deployArea},</if>
+            <if test="deployComputerRoom != null">#{deployComputerRoom},</if>
+            <if test="deployDb != null">#{deployDb},</if>
+            <if test="deployFloor != null">#{deployFloor},</if>
+            <if test="deployGallery != null">#{deployGallery},</if>
+            <if test="facilityCategory != null">#{facilityCategory},</if>
+            <if test="facilityDescriptor != null">#{facilityDescriptor},</if>
+            <if test="facilityName != null">#{facilityName},</if>
+            <if test="facilityOwnershipAgency != null">#{facilityOwnershipAgency},</if>
+            <if test="facilityUpdateDate != null">#{facilityUpdateDate},</if>
+            <if test="facilityUseDate != null">#{facilityUseDate},</if>
+            <if test="facilityUseState != null">#{facilityUseState},</if>
+            <if test="maintenanceCause != null">#{maintenanceCause},</if>
+            <if test="maintenanceResults != null">#{maintenanceResults},</if>
+            <if test="maintenanceTime != null">#{maintenanceTime},</if>
+            <if test="numberOfBatteries != null">#{numberOfBatteries},</if>
+            <if test="operationDepartment != null">#{operationDepartment},</if>
+            <if test="ratedAlternatingFrequency != null">#{ratedAlternatingFrequency},</if>
+            <if test="ratedInputCurrent != null">#{ratedInputCurrent},</if>
+            <if test="ratedInputPower != null">#{ratedInputPower},</if>
+            <if test="ratedInputVoltage != null">#{ratedInputVoltage},</if>
+            <if test="ratedOutputCurrent != null">#{ratedOutputCurrent},</if>
+            <if test="ratedOutputPower != null">#{ratedOutputPower},</if>
+            <if test="ratedOutputVoltage != null">#{ratedOutputVoltage},</if>
+            <if test="remarksInformation != null">#{remarksInformation},</if>
+            <if test="serviceEndTime != null">#{serviceEndTime},</if>
+            <if test="serviceLevel != null">#{serviceLevel},</if>
+            <if test="serviceProvider != null">#{serviceProvider},</if>
+            <if test="serviceStartTime != null">#{serviceStartTime},</if>
+            <if test="typeOfUninterruptibleMainsPowerModule != null">#{typeOfUninterruptibleMainsPowerModule},</if>
+            <if test="uninterruptibleMainsType != null">#{uninterruptibleMainsType},</if>
+            <if test="upsParallelSystem != null">#{upsParallelSystem},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateUninterrupted" parameterType="Uninterrupted">
+        update uninterrupted
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="administrativeDepartment != null">administrative_department = #{administrativeDepartment},</if>
+            <if test="assetBrand != null">asset_brand = #{assetBrand},</if>
+            <if test="assetCode != null">asset_code = #{assetCode},</if>
+            <if test="assetSerialNumber != null">asset_serial_number = #{assetSerialNumber},</if>
+            <if test="assetType != null">asset_type = #{assetType},</if>
+            <if test="assetValue != null">asset_value = #{assetValue},</if>
+            <if test="backupPowerSupply != null">backup_power_supply = #{backupPowerSupply},</if>
+            <if test="batteryType != null">battery_type = #{batteryType},</if>
+            <if test="brandLand != null">brand_land = #{brandLand},</if>
+            <if test="communicationProtocol != null">communication_protocol = #{communicationProtocol},</if>
+            <if test="deployArea != null">deploy_area = #{deployArea},</if>
+            <if test="deployComputerRoom != null">deploy_computer_room = #{deployComputerRoom},</if>
+            <if test="deployDb != null">deploy_db = #{deployDb},</if>
+            <if test="deployFloor != null">deploy_floor = #{deployFloor},</if>
+            <if test="deployGallery != null">deploy_gallery = #{deployGallery},</if>
+            <if test="facilityCategory != null">facility_category = #{facilityCategory},</if>
+            <if test="facilityDescriptor != null">facility_descriptor = #{facilityDescriptor},</if>
+            <if test="facilityName != null">facility_name = #{facilityName},</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency = #{facilityOwnershipAgency},</if>
+            <if test="facilityUpdateDate != null">facility_update_date = #{facilityUpdateDate},</if>
+            <if test="facilityUseDate != null">facility_use_date = #{facilityUseDate},</if>
+            <if test="facilityUseState != null">facility_use_state = #{facilityUseState},</if>
+            <if test="maintenanceCause != null">maintenance_cause = #{maintenanceCause},</if>
+            <if test="maintenanceResults != null">maintenance_results = #{maintenanceResults},</if>
+            <if test="maintenanceTime != null">maintenance_time = #{maintenanceTime},</if>
+            <if test="numberOfBatteries != null">number_of_batteries = #{numberOfBatteries},</if>
+            <if test="operationDepartment != null">operation_department = #{operationDepartment},</if>
+            <if test="ratedAlternatingFrequency != null">rated_alternating_frequency = #{ratedAlternatingFrequency},</if>
+            <if test="ratedInputCurrent != null">rated_input_current = #{ratedInputCurrent},</if>
+            <if test="ratedInputPower != null">rated_input_power = #{ratedInputPower},</if>
+            <if test="ratedInputVoltage != null">rated_input_voltage = #{ratedInputVoltage},</if>
+            <if test="ratedOutputCurrent != null">rated_output_current = #{ratedOutputCurrent},</if>
+            <if test="ratedOutputPower != null">rated_output_power = #{ratedOutputPower},</if>
+            <if test="ratedOutputVoltage != null">rated_output_voltage = #{ratedOutputVoltage},</if>
+            <if test="remarksInformation != null">remarks_information = #{remarksInformation},</if>
+            <if test="serviceEndTime != null">service_end_time = #{serviceEndTime},</if>
+            <if test="serviceLevel != null">service_level = #{serviceLevel},</if>
+            <if test="serviceProvider != null">service_provider = #{serviceProvider},</if>
+            <if test="serviceStartTime != null">service_start_time = #{serviceStartTime},</if>
+            <if test="typeOfUninterruptibleMainsPowerModule != null">type_of_uninterruptible_mains_power_module = #{typeOfUninterruptibleMainsPowerModule},</if>
+            <if test="uninterruptibleMainsType != null">uninterruptible_mains_type = #{uninterruptibleMainsType},</if>
+            <if test="upsParallelSystem != null">ups_parallel_system = #{upsParallelSystem},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteUninterruptedById" parameterType="Long">
+        delete from uninterrupted where id = #{id}
+    </delete>
+
+    <delete id="deleteUninterruptedByIds" parameterType="String">
+        delete from uninterrupted where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

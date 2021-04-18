@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.datasync.mapper.ApplicationMapper">
+    
+    <resultMap type="Application" id="ApplicationResult">
+        <result property="id"    column="id"    />
+        <result property="applicationProfile"    column="application_profile"    />
+        <result property="applySystemIdentifiers"    column="apply_system_identifiers"    />
+        <result property="brandLand"    column="brand_land"    />
+        <result property="levelOfProtection"    column="level_of_protection"    />
+        <result property="note"    column="note"    />
+        <result property="softwareCategory"    column="software_category"    />
+        <result property="softwareName"    column="software_name"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectApplicationVo">
+        select id, application_profile, apply_system_identifiers, brand_land, level_of_protection, note, software_category, software_name, status, del_flag, create_by, create_time, update_by, update_time from application
+    </sql>
+
+    <select id="selectApplicationList" parameterType="Application" resultMap="ApplicationResult">
+        <include refid="selectApplicationVo"/>
+        <where>  
+            <if test="softwareName != null  and softwareName != ''"> and software_name like concat('%', #{softwareName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectApplicationById" parameterType="Long" resultMap="ApplicationResult">
+        <include refid="selectApplicationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertApplication" parameterType="Application" useGeneratedKeys="true" keyProperty="id">
+        insert into application
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applicationProfile != null">application_profile,</if>
+            <if test="applySystemIdentifiers != null">apply_system_identifiers,</if>
+            <if test="brandLand != null">brand_land,</if>
+            <if test="levelOfProtection != null">level_of_protection,</if>
+            <if test="note != null">note,</if>
+            <if test="softwareCategory != null">software_category,</if>
+            <if test="softwareName != null">software_name,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applicationProfile != null">#{applicationProfile},</if>
+            <if test="applySystemIdentifiers != null">#{applySystemIdentifiers},</if>
+            <if test="brandLand != null">#{brandLand},</if>
+            <if test="levelOfProtection != null">#{levelOfProtection},</if>
+            <if test="note != null">#{note},</if>
+            <if test="softwareCategory != null">#{softwareCategory},</if>
+            <if test="softwareName != null">#{softwareName},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateApplication" parameterType="Application">
+        update application
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="applicationProfile != null">application_profile = #{applicationProfile},</if>
+            <if test="applySystemIdentifiers != null">apply_system_identifiers = #{applySystemIdentifiers},</if>
+            <if test="brandLand != null">brand_land = #{brandLand},</if>
+            <if test="levelOfProtection != null">level_of_protection = #{levelOfProtection},</if>
+            <if test="note != null">note = #{note},</if>
+            <if test="softwareCategory != null">software_category = #{softwareCategory},</if>
+            <if test="softwareName != null">software_name = #{softwareName},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteApplicationById" parameterType="Long">
+        delete from application where id = #{id}
+    </delete>
+
+    <delete id="deleteApplicationByIds" parameterType="String">
+        delete from application where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增数据中心间距')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-spacing-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">从属关系：</label>
+                <div class="col-sm-8">
+                    <input name="affiliation" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">直线距离：</label>
+                <div class="col-sm-8">
+                    <input name="airlineDistance" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">分类标识符：</label>
+                <div class="col-sm-8">
+                    <input name="facilityCategory" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">归属机构：</label>
+                <div class="col-sm-8">
+                    <input name="facilityOwnershipAgency" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">本端数据中心：</label>
+                <div class="col-sm-8">
+                    <input name="localDb" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">对端数据中心：</label>
+                <div class="col-sm-8">
+                    <input name="oppositeDb" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">关系标识符：</label>
+                <div class="col-sm-8">
+                    <input name="relationalIdentifier" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">状态：</label>
+                <div class="col-sm-8">
+                    <div class="radio-box">
+                        <input type="radio" name="status" value="">
+                        <label th:for="status" th:text="未知"></label>
+                    </div>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">删除标志：</label>
+                <div class="col-sm-8">
+                    <input name="delFlag" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "datasync/spacing"
+        $("#form-spacing-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-spacing-add').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

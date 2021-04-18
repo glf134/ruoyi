@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.datasync.mapper.BasedSoftwareMapper">
+    
+    <resultMap type="BasedSoftware" id="BasedSoftwareResult">
+        <result property="id"    column="id"    />
+        <result property="brandLand"    column="brand_land"    />
+        <result property="number"    column="number"    />
+        <result property="numberOfSoftwareInstance"    column="number_of_software_instance"    />
+        <result property="numberOfSoftwareLicenses"    column="number_of_software_licenses"    />
+        <result property="remarksInformation"    column="remarks_information"    />
+        <result property="scopeOfUse"    column="scope_of_use"    />
+        <result property="softwareCategory"    column="software_category"    />
+        <result property="softwareDescriptor"    column="software_descriptor"    />
+        <result property="softwareInstallationConditions"    column="software_installation_conditions"    />
+        <result property="softwareLife"    column="software_life"    />
+        <result property="softwareManufacturer"    column="software_manufacturer"    />
+        <result property="softwareName"    column="software_name"    />
+        <result property="softwareSource"    column="software_source"    />
+        <result property="softwareUsingAgency"    column="software_using_agency"    />
+        <result property="softwareVersionInformation"    column="software_version_information"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectBasedSoftwareVo">
+        select id, brand_land, number, number_of_software_instance, number_of_software_licenses, remarks_information, scope_of_use, software_category, software_descriptor, software_installation_conditions, software_life, software_manufacturer, software_name, software_source, software_using_agency, software_version_information, status, del_flag, create_by, create_time, update_by, update_time from based_software
+    </sql>
+
+    <select id="selectBasedSoftwareList" parameterType="BasedSoftware" resultMap="BasedSoftwareResult">
+        <include refid="selectBasedSoftwareVo"/>
+        <where>  
+            <if test="softwareCategory != null  and softwareCategory != ''"> and software_category = #{softwareCategory}</if>
+            <if test="softwareManufacturer != null  and softwareManufacturer != ''"> and software_manufacturer = #{softwareManufacturer}</if>
+            <if test="softwareName != null  and softwareName != ''"> and software_name like concat('%', #{softwareName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectBasedSoftwareById" parameterType="Long" resultMap="BasedSoftwareResult">
+        <include refid="selectBasedSoftwareVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertBasedSoftware" parameterType="BasedSoftware" useGeneratedKeys="true" keyProperty="id">
+        insert into based_software
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="brandLand != null">brand_land,</if>
+            <if test="number != null">number,</if>
+            <if test="numberOfSoftwareInstance != null">number_of_software_instance,</if>
+            <if test="numberOfSoftwareLicenses != null">number_of_software_licenses,</if>
+            <if test="remarksInformation != null">remarks_information,</if>
+            <if test="scopeOfUse != null">scope_of_use,</if>
+            <if test="softwareCategory != null">software_category,</if>
+            <if test="softwareDescriptor != null">software_descriptor,</if>
+            <if test="softwareInstallationConditions != null">software_installation_conditions,</if>
+            <if test="softwareLife != null">software_life,</if>
+            <if test="softwareManufacturer != null">software_manufacturer,</if>
+            <if test="softwareName != null">software_name,</if>
+            <if test="softwareSource != null">software_source,</if>
+            <if test="softwareUsingAgency != null">software_using_agency,</if>
+            <if test="softwareVersionInformation != null">software_version_information,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="brandLand != null">#{brandLand},</if>
+            <if test="number != null">#{number},</if>
+            <if test="numberOfSoftwareInstance != null">#{numberOfSoftwareInstance},</if>
+            <if test="numberOfSoftwareLicenses != null">#{numberOfSoftwareLicenses},</if>
+            <if test="remarksInformation != null">#{remarksInformation},</if>
+            <if test="scopeOfUse != null">#{scopeOfUse},</if>
+            <if test="softwareCategory != null">#{softwareCategory},</if>
+            <if test="softwareDescriptor != null">#{softwareDescriptor},</if>
+            <if test="softwareInstallationConditions != null">#{softwareInstallationConditions},</if>
+            <if test="softwareLife != null">#{softwareLife},</if>
+            <if test="softwareManufacturer != null">#{softwareManufacturer},</if>
+            <if test="softwareName != null">#{softwareName},</if>
+            <if test="softwareSource != null">#{softwareSource},</if>
+            <if test="softwareUsingAgency != null">#{softwareUsingAgency},</if>
+            <if test="softwareVersionInformation != null">#{softwareVersionInformation},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateBasedSoftware" parameterType="BasedSoftware">
+        update based_software
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="brandLand != null">brand_land = #{brandLand},</if>
+            <if test="number != null">number = #{number},</if>
+            <if test="numberOfSoftwareInstance != null">number_of_software_instance = #{numberOfSoftwareInstance},</if>
+            <if test="numberOfSoftwareLicenses != null">number_of_software_licenses = #{numberOfSoftwareLicenses},</if>
+            <if test="remarksInformation != null">remarks_information = #{remarksInformation},</if>
+            <if test="scopeOfUse != null">scope_of_use = #{scopeOfUse},</if>
+            <if test="softwareCategory != null">software_category = #{softwareCategory},</if>
+            <if test="softwareDescriptor != null">software_descriptor = #{softwareDescriptor},</if>
+            <if test="softwareInstallationConditions != null">software_installation_conditions = #{softwareInstallationConditions},</if>
+            <if test="softwareLife != null">software_life = #{softwareLife},</if>
+            <if test="softwareManufacturer != null">software_manufacturer = #{softwareManufacturer},</if>
+            <if test="softwareName != null">software_name = #{softwareName},</if>
+            <if test="softwareSource != null">software_source = #{softwareSource},</if>
+            <if test="softwareUsingAgency != null">software_using_agency = #{softwareUsingAgency},</if>
+            <if test="softwareVersionInformation != null">software_version_information = #{softwareVersionInformation},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteBasedSoftwareById" parameterType="Long">
+        delete from based_software where id = #{id}
+    </delete>
+
+    <delete id="deleteBasedSoftwareByIds" parameterType="String">
+        delete from based_software where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

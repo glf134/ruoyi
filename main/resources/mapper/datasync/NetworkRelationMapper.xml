@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.datasync.mapper.NetworkRelationMapper">
+    
+    <resultMap type="NetworkRelation" id="NetworkRelationResult">
+        <result property="id"    column="id"    />
+        <result property="directConnectionNetAsset"    column="direct_connection_net_asset"    />
+        <result property="facilityCategory"    column="facility_category"    />
+        <result property="facilityOwnershipAgency"    column="facility_ownership_agency"    />
+        <result property="localItAsset"    column="local_it_asset"    />
+        <result property="relationalIdentifier"    column="relational_identifier"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectNetworkRelationVo">
+        select id, direct_connection_net_asset, facility_category, facility_ownership_agency, local_it_asset, relational_identifier, status, del_flag, create_by, create_time, update_by, update_time from network_relation
+    </sql>
+
+    <select id="selectNetworkRelationList" parameterType="NetworkRelation" resultMap="NetworkRelationResult">
+        <include refid="selectNetworkRelationVo"/>
+        <where>  
+            <if test="facilityCategory != null  and facilityCategory != ''"> and facility_category = #{facilityCategory}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectNetworkRelationById" parameterType="Long" resultMap="NetworkRelationResult">
+        <include refid="selectNetworkRelationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertNetworkRelation" parameterType="NetworkRelation" useGeneratedKeys="true" keyProperty="id">
+        insert into network_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="directConnectionNetAsset != null">direct_connection_net_asset,</if>
+            <if test="facilityCategory != null">facility_category,</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency,</if>
+            <if test="localItAsset != null">local_it_asset,</if>
+            <if test="relationalIdentifier != null">relational_identifier,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="directConnectionNetAsset != null">#{directConnectionNetAsset},</if>
+            <if test="facilityCategory != null">#{facilityCategory},</if>
+            <if test="facilityOwnershipAgency != null">#{facilityOwnershipAgency},</if>
+            <if test="localItAsset != null">#{localItAsset},</if>
+            <if test="relationalIdentifier != null">#{relationalIdentifier},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateNetworkRelation" parameterType="NetworkRelation">
+        update network_relation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="directConnectionNetAsset != null">direct_connection_net_asset = #{directConnectionNetAsset},</if>
+            <if test="facilityCategory != null">facility_category = #{facilityCategory},</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency = #{facilityOwnershipAgency},</if>
+            <if test="localItAsset != null">local_it_asset = #{localItAsset},</if>
+            <if test="relationalIdentifier != null">relational_identifier = #{relationalIdentifier},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteNetworkRelationById" parameterType="Long">
+        delete from network_relation where id = #{id}
+    </delete>
+
+    <delete id="deleteNetworkRelationByIds" parameterType="String">
+        delete from network_relation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

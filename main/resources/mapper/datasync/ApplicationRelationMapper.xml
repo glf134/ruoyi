@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.datasync.mapper.ApplicationRelationMapper">
+    
+    <resultMap type="ApplicationRelation" id="ApplicationRelationResult">
+        <result property="id"    column="id"    />
+        <result property="applicationIdentifier"    column="application_identifier"    />
+        <result property="applicationServerType"    column="application_server_type"    />
+        <result property="applicationSystemAssociatedServer"    column="application_system_associated_server"    />
+        <result property="applicationSystemAssociatedStorage"    column="application_system_associated_storage"    />
+        <result property="facilityCategory"    column="facility_category"    />
+        <result property="facilityOwnershipAgency"    column="facility_ownership_agency"    />
+        <result property="relationalIdentifier"    column="relational_identifier"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectApplicationRelationVo">
+        select id, application_identifier, application_server_type, application_system_associated_server, application_system_associated_storage, facility_category, facility_ownership_agency, relational_identifier, status, del_flag, create_by, create_time, update_by, update_time from application_relation
+    </sql>
+
+    <select id="selectApplicationRelationList" parameterType="ApplicationRelation" resultMap="ApplicationRelationResult">
+        <include refid="selectApplicationRelationVo"/>
+        <where>  
+            <if test="applicationIdentifier != null  and applicationIdentifier != ''"> and application_identifier = #{applicationIdentifier}</if>
+        </where>
+    </select>
+    
+    <select id="selectApplicationRelationById" parameterType="Long" resultMap="ApplicationRelationResult">
+        <include refid="selectApplicationRelationVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertApplicationRelation" parameterType="ApplicationRelation" useGeneratedKeys="true" keyProperty="id">
+        insert into application_relation
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applicationIdentifier != null">application_identifier,</if>
+            <if test="applicationServerType != null">application_server_type,</if>
+            <if test="applicationSystemAssociatedServer != null">application_system_associated_server,</if>
+            <if test="applicationSystemAssociatedStorage != null">application_system_associated_storage,</if>
+            <if test="facilityCategory != null">facility_category,</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency,</if>
+            <if test="relationalIdentifier != null">relational_identifier,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applicationIdentifier != null">#{applicationIdentifier},</if>
+            <if test="applicationServerType != null">#{applicationServerType},</if>
+            <if test="applicationSystemAssociatedServer != null">#{applicationSystemAssociatedServer},</if>
+            <if test="applicationSystemAssociatedStorage != null">#{applicationSystemAssociatedStorage},</if>
+            <if test="facilityCategory != null">#{facilityCategory},</if>
+            <if test="facilityOwnershipAgency != null">#{facilityOwnershipAgency},</if>
+            <if test="relationalIdentifier != null">#{relationalIdentifier},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateApplicationRelation" parameterType="ApplicationRelation">
+        update application_relation
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="applicationIdentifier != null">application_identifier = #{applicationIdentifier},</if>
+            <if test="applicationServerType != null">application_server_type = #{applicationServerType},</if>
+            <if test="applicationSystemAssociatedServer != null">application_system_associated_server = #{applicationSystemAssociatedServer},</if>
+            <if test="applicationSystemAssociatedStorage != null">application_system_associated_storage = #{applicationSystemAssociatedStorage},</if>
+            <if test="facilityCategory != null">facility_category = #{facilityCategory},</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency = #{facilityOwnershipAgency},</if>
+            <if test="relationalIdentifier != null">relational_identifier = #{relationalIdentifier},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteApplicationRelationById" parameterType="Long">
+        delete from application_relation where id = #{id}
+    </delete>
+
+    <delete id="deleteApplicationRelationByIds" parameterType="String">
+        delete from application_relation where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

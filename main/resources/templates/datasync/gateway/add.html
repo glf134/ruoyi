@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('新增安全网关')" />
+    <th:block th:include="include :: datetimepicker-css" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-gateway-add">
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">管理部门：</label>
+                <div class="col-sm-8">
+                    <input name="administrativeDepartment" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设备品牌：</label>
+                <div class="col-sm-8">
+                    <input name="assetBrand" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">资产编码：</label>
+                <div class="col-sm-8">
+                    <input name="assetCode" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">产品序列号：</label>
+                <div class="col-sm-8">
+                    <input name="assetSerialNumber" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设备型号：</label>
+                <div class="col-sm-8">
+                    <select name="assetType" class="form-control m-b">
+                        <option value="">所有</option>
+                    </select>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">资产价值：</label>
+                <div class="col-sm-8">
+                    <input name="assetValue" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">所属机柜：</label>
+                <div class="col-sm-8">
+                    <input name="belongCabinet" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">品牌属地：</label>
+                <div class="col-sm-8">
+                    <input name="brandLand" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">部署区域：</label>
+                <div class="col-sm-8">
+                    <select name="deployArea" class="form-control m-b" th:with="type=${@dict.getType('administrative')}">
+                        <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}"></option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">所属机房：</label>
+                <div class="col-sm-8">
+                    <input name="deployComputerRoom" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">部署数据中心：</label>
+                <div class="col-sm-8">
+                    <input name="deployDb" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">所属楼层：</label>
+                <div class="col-sm-8">
+                    <input name="deployFloor" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">所属楼座：</label>
+                <div class="col-sm-8">
+                    <input name="deployGallery" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设备高度：</label>
+                <div class="col-sm-8">
+                    <input name="deviceHeight" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施分类标识符：</label>
+                <div class="col-sm-8">
+                    <input name="facilityCategory" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施标识符：</label>
+                <div class="col-sm-8">
+                    <input name="facilityDescriptor" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施名称：</label>
+                <div class="col-sm-8">
+                    <input name="facilityName" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施归属机构：</label>
+                <div class="col-sm-8">
+                    <input name="facilityOwnershipAgency" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施信息更新日期：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="facilityUpdateDate" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施投产日期：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="facilityUseDate" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">设施在用状态：</label>
+                <div class="col-sm-8">
+                    <input name="facilityUseState" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">影响系统：</label>
+                <div class="col-sm-8">
+                    <input name="influenceSystem" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">维修故障原因：</label>
+                <div class="col-sm-8">
+                    <input name="maintenanceCause" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">维修结果：</label>
+                <div class="col-sm-8">
+                    <input name="maintenanceResults" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">维修时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="maintenanceTime" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">管理IP地址：</label>
+                <div class="col-sm-8">
+                    <input name="managementIp" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">网关接入模式：</label>
+                <div class="col-sm-8">
+                    <input name="netconnectionMode" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">操作系统版本信息：</label>
+                <div class="col-sm-8">
+                    <input name="operatingSystemVersionInformation" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">运维部门：</label>
+                <div class="col-sm-8">
+                    <input name="operationDepartment" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">备注信息：</label>
+                <div class="col-sm-8">
+                    <input name="remarksInformation" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">安全部署方式：</label>
+                <div class="col-sm-8">
+                    <input name="safetydeploymentMode" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">安全销售许可：</label>
+                <div class="col-sm-8">
+                    <input name="sellingLicense" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">服务截止时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="serviceEndTime" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">服务级别：</label>
+                <div class="col-sm-8">
+                    <input name="serviceLevel" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">服务提供商：</label>
+                <div class="col-sm-8">
+                    <input name="serviceProvider" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">服务开始时间：</label>
+                <div class="col-sm-8">
+                    <div class="input-group date">
+                        <input name="serviceStartTime" class="form-control" placeholder="yyyy-MM-dd" type="text">
+                        <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">槽位号：</label>
+                <div class="col-sm-8">
+                    <input name="slotNo" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">IPV6支持能力：</label>
+                <div class="col-sm-8">
+                    <input name="supportIpv6" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">吞吐率：</label>
+                <div class="col-sm-8">
+                    <input name="throughputRate" class="form-control" type="text">
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">状态：</label>
+                <div class="col-sm-8">
+                    <div class="radio-box">
+                        <input type="radio" name="status" value="">
+                        <label th:for="status" th:text="未知"></label>
+                    </div>
+                    <span class="help-block m-b-none"><i class="fa fa-info-circle"></i> 代码生成请选择字典属性</span>
+                </div>
+            </div>
+            <div class="form-group">    
+                <label class="col-sm-3 control-label">删除标志：</label>
+                <div class="col-sm-8">
+                    <input name="delFlag" class="form-control" type="text">
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <th:block th:include="include :: datetimepicker-js" />
+    <script th:inline="javascript">
+        var prefix = ctx + "datasync/gateway"
+        $("#form-gateway-add").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/add", $('#form-gateway-add').serialize());
+            }
+        }
+
+        $("input[name='facilityUpdateDate']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        $("input[name='facilityUseDate']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        $("input[name='maintenanceTime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        $("input[name='serviceEndTime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+
+        $("input[name='serviceStartTime']").datetimepicker({
+            format: "yyyy-mm-dd",
+            minView: "month",
+            autoclose: true
+        });
+    </script>
+</body>
+</html>

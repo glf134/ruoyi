@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.datasync.mapper.VpnMapper">
+    
+    <resultMap type="Vpn" id="VpnResult">
+        <result property="id"    column="id"    />
+        <result property="administrativeDepartment"    column="administrative_department"    />
+        <result property="application"    column="application"    />
+        <result property="assetBrand"    column="asset_brand"    />
+        <result property="assetCode"    column="asset_code"    />
+        <result property="assetSerialNumber"    column="asset_serial_number"    />
+        <result property="assetType"    column="asset_type"    />
+        <result property="assetValue"    column="asset_value"    />
+        <result property="authentication"    column="authentication"    />
+        <result property="belongCabinet"    column="belong_cabinet"    />
+        <result property="brandLand"    column="brand_land"    />
+        <result property="deployArea"    column="deploy_area"    />
+        <result property="deployComputerRoom"    column="deploy_computer_room"    />
+        <result property="deployDb"    column="deploy_db"    />
+        <result property="deployFloor"    column="deploy_floor"    />
+        <result property="deployGallery"    column="deploy_gallery"    />
+        <result property="deviceHeight"    column="device_height"    />
+        <result property="digitalDigest"    column="digital_digest"    />
+        <result property="facilityCategory"    column="facility_category"    />
+        <result property="facilityDescriptor"    column="facility_descriptor"    />
+        <result property="facilityName"    column="facility_name"    />
+        <result property="facilityOwnershipAgency"    column="facility_ownership_agency"    />
+        <result property="facilityUpdateDate"    column="facility_update_date"    />
+        <result property="facilityUseDate"    column="facility_use_date"    />
+        <result property="facilityUseState"    column="facility_use_state"    />
+        <result property="influenceSystem"    column="influence_system"    />
+        <result property="maintenanceCause"    column="maintenance_cause"    />
+        <result property="maintenanceResults"    column="maintenance_results"    />
+        <result property="maintenanceTime"    column="maintenance_time"    />
+        <result property="managementIp"    column="management_ip"    />
+        <result property="maximumConnections"    column="maximum_connections"    />
+        <result property="numberOfTunnels"    column="number_of_tunnels"    />
+        <result property="operatingSystemVersionInformation"    column="operating_system_version_information"    />
+        <result property="operationDepartment"    column="operation_department"    />
+        <result property="protocolSupported"    column="protocol_supported"    />
+        <result property="remarksInformation"    column="remarks_information"    />
+        <result property="safetydeploymentMode"    column="safetydeployment_mode"    />
+        <result property="sellingLicense"    column="selling_license"    />
+        <result property="serviceEndTime"    column="service_end_time"    />
+        <result property="serviceLevel"    column="service_level"    />
+        <result property="serviceProvider"    column="service_provider"    />
+        <result property="serviceStartTime"    column="service_start_time"    />
+        <result property="slotNo"    column="slot_no"    />
+        <result property="stateSecretSupported"    column="state_secret_supported"    />
+        <result property="supportIpv6"    column="support_ipv6"    />
+        <result property="throughputRate"    column="throughput_rate"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectVpnVo">
+        select id, administrative_department, application, asset_brand, asset_code, asset_serial_number, asset_type, asset_value, authentication, belong_cabinet, brand_land, deploy_area, deploy_computer_room, deploy_db, deploy_floor, deploy_gallery, device_height, digital_digest, facility_category, facility_descriptor, facility_name, facility_ownership_agency, facility_update_date, facility_use_date, facility_use_state, influence_system, maintenance_cause, maintenance_results, maintenance_time, management_ip, maximum_connections, number_of_tunnels, operating_system_version_information, operation_department, protocol_supported, remarks_information, safetydeployment_mode, selling_license, service_end_time, service_level, service_provider, service_start_time, slot_no, state_secret_supported, support_ipv6, throughput_rate, status, del_flag, create_by, create_time, update_by, update_time from vpn
+    </sql>
+
+    <select id="selectVpnList" parameterType="Vpn" resultMap="VpnResult">
+        <include refid="selectVpnVo"/>
+        <where>  
+            <if test="facilityDescriptor != null  and facilityDescriptor != ''"> and facility_descriptor = #{facilityDescriptor}</if>
+            <if test="facilityName != null  and facilityName != ''"> and facility_name like concat('%', #{facilityName}, '%')</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+    </select>
+    
+    <select id="selectVpnById" parameterType="Long" resultMap="VpnResult">
+        <include refid="selectVpnVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertVpn" parameterType="Vpn" useGeneratedKeys="true" keyProperty="id">
+        insert into vpn
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="administrativeDepartment != null">administrative_department,</if>
+            <if test="application != null">application,</if>
+            <if test="assetBrand != null">asset_brand,</if>
+            <if test="assetCode != null">asset_code,</if>
+            <if test="assetSerialNumber != null">asset_serial_number,</if>
+            <if test="assetType != null">asset_type,</if>
+            <if test="assetValue != null">asset_value,</if>
+            <if test="authentication != null">authentication,</if>
+            <if test="belongCabinet != null">belong_cabinet,</if>
+            <if test="brandLand != null">brand_land,</if>
+            <if test="deployArea != null">deploy_area,</if>
+            <if test="deployComputerRoom != null">deploy_computer_room,</if>
+            <if test="deployDb != null">deploy_db,</if>
+            <if test="deployFloor != null">deploy_floor,</if>
+            <if test="deployGallery != null">deploy_gallery,</if>
+            <if test="deviceHeight != null">device_height,</if>
+            <if test="digitalDigest != null">digital_digest,</if>
+            <if test="facilityCategory != null">facility_category,</if>
+            <if test="facilityDescriptor != null">facility_descriptor,</if>
+            <if test="facilityName != null">facility_name,</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency,</if>
+            <if test="facilityUpdateDate != null">facility_update_date,</if>
+            <if test="facilityUseDate != null">facility_use_date,</if>
+            <if test="facilityUseState != null">facility_use_state,</if>
+            <if test="influenceSystem != null">influence_system,</if>
+            <if test="maintenanceCause != null">maintenance_cause,</if>
+            <if test="maintenanceResults != null">maintenance_results,</if>
+            <if test="maintenanceTime != null">maintenance_time,</if>
+            <if test="managementIp != null">management_ip,</if>
+            <if test="maximumConnections != null">maximum_connections,</if>
+            <if test="numberOfTunnels != null">number_of_tunnels,</if>
+            <if test="operatingSystemVersionInformation != null">operating_system_version_information,</if>
+            <if test="operationDepartment != null">operation_department,</if>
+            <if test="protocolSupported != null">protocol_supported,</if>
+            <if test="remarksInformation != null">remarks_information,</if>
+            <if test="safetydeploymentMode != null">safetydeployment_mode,</if>
+            <if test="sellingLicense != null">selling_license,</if>
+            <if test="serviceEndTime != null">service_end_time,</if>
+            <if test="serviceLevel != null">service_level,</if>
+            <if test="serviceProvider != null">service_provider,</if>
+            <if test="serviceStartTime != null">service_start_time,</if>
+            <if test="slotNo != null">slot_no,</if>
+            <if test="stateSecretSupported != null">state_secret_supported,</if>
+            <if test="supportIpv6 != null">support_ipv6,</if>
+            <if test="throughputRate != null">throughput_rate,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="administrativeDepartment != null">#{administrativeDepartment},</if>
+            <if test="application != null">#{application},</if>
+            <if test="assetBrand != null">#{assetBrand},</if>
+            <if test="assetCode != null">#{assetCode},</if>
+            <if test="assetSerialNumber != null">#{assetSerialNumber},</if>
+            <if test="assetType != null">#{assetType},</if>
+            <if test="assetValue != null">#{assetValue},</if>
+            <if test="authentication != null">#{authentication},</if>
+            <if test="belongCabinet != null">#{belongCabinet},</if>
+            <if test="brandLand != null">#{brandLand},</if>
+            <if test="deployArea != null">#{deployArea},</if>
+            <if test="deployComputerRoom != null">#{deployComputerRoom},</if>
+            <if test="deployDb != null">#{deployDb},</if>
+            <if test="deployFloor != null">#{deployFloor},</if>
+            <if test="deployGallery != null">#{deployGallery},</if>
+            <if test="deviceHeight != null">#{deviceHeight},</if>
+            <if test="digitalDigest != null">#{digitalDigest},</if>
+            <if test="facilityCategory != null">#{facilityCategory},</if>
+            <if test="facilityDescriptor != null">#{facilityDescriptor},</if>
+            <if test="facilityName != null">#{facilityName},</if>
+            <if test="facilityOwnershipAgency != null">#{facilityOwnershipAgency},</if>
+            <if test="facilityUpdateDate != null">#{facilityUpdateDate},</if>
+            <if test="facilityUseDate != null">#{facilityUseDate},</if>
+            <if test="facilityUseState != null">#{facilityUseState},</if>
+            <if test="influenceSystem != null">#{influenceSystem},</if>
+            <if test="maintenanceCause != null">#{maintenanceCause},</if>
+            <if test="maintenanceResults != null">#{maintenanceResults},</if>
+            <if test="maintenanceTime != null">#{maintenanceTime},</if>
+            <if test="managementIp != null">#{managementIp},</if>
+            <if test="maximumConnections != null">#{maximumConnections},</if>
+            <if test="numberOfTunnels != null">#{numberOfTunnels},</if>
+            <if test="operatingSystemVersionInformation != null">#{operatingSystemVersionInformation},</if>
+            <if test="operationDepartment != null">#{operationDepartment},</if>
+            <if test="protocolSupported != null">#{protocolSupported},</if>
+            <if test="remarksInformation != null">#{remarksInformation},</if>
+            <if test="safetydeploymentMode != null">#{safetydeploymentMode},</if>
+            <if test="sellingLicense != null">#{sellingLicense},</if>
+            <if test="serviceEndTime != null">#{serviceEndTime},</if>
+            <if test="serviceLevel != null">#{serviceLevel},</if>
+            <if test="serviceProvider != null">#{serviceProvider},</if>
+            <if test="serviceStartTime != null">#{serviceStartTime},</if>
+            <if test="slotNo != null">#{slotNo},</if>
+            <if test="stateSecretSupported != null">#{stateSecretSupported},</if>
+            <if test="supportIpv6 != null">#{supportIpv6},</if>
+            <if test="throughputRate != null">#{throughputRate},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateVpn" parameterType="Vpn">
+        update vpn
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="administrativeDepartment != null">administrative_department = #{administrativeDepartment},</if>
+            <if test="application != null">application = #{application},</if>
+            <if test="assetBrand != null">asset_brand = #{assetBrand},</if>
+            <if test="assetCode != null">asset_code = #{assetCode},</if>
+            <if test="assetSerialNumber != null">asset_serial_number = #{assetSerialNumber},</if>
+            <if test="assetType != null">asset_type = #{assetType},</if>
+            <if test="assetValue != null">asset_value = #{assetValue},</if>
+            <if test="authentication != null">authentication = #{authentication},</if>
+            <if test="belongCabinet != null">belong_cabinet = #{belongCabinet},</if>
+            <if test="brandLand != null">brand_land = #{brandLand},</if>
+            <if test="deployArea != null">deploy_area = #{deployArea},</if>
+            <if test="deployComputerRoom != null">deploy_computer_room = #{deployComputerRoom},</if>
+            <if test="deployDb != null">deploy_db = #{deployDb},</if>
+            <if test="deployFloor != null">deploy_floor = #{deployFloor},</if>
+            <if test="deployGallery != null">deploy_gallery = #{deployGallery},</if>
+            <if test="deviceHeight != null">device_height = #{deviceHeight},</if>
+            <if test="digitalDigest != null">digital_digest = #{digitalDigest},</if>
+            <if test="facilityCategory != null">facility_category = #{facilityCategory},</if>
+            <if test="facilityDescriptor != null">facility_descriptor = #{facilityDescriptor},</if>
+            <if test="facilityName != null">facility_name = #{facilityName},</if>
+            <if test="facilityOwnershipAgency != null">facility_ownership_agency = #{facilityOwnershipAgency},</if>
+            <if test="facilityUpdateDate != null">facility_update_date = #{facilityUpdateDate},</if>
+            <if test="facilityUseDate != null">facility_use_date = #{facilityUseDate},</if>
+            <if test="facilityUseState != null">facility_use_state = #{facilityUseState},</if>
+            <if test="influenceSystem != null">influence_system = #{influenceSystem},</if>
+            <if test="maintenanceCause != null">maintenance_cause = #{maintenanceCause},</if>
+            <if test="maintenanceResults != null">maintenance_results = #{maintenanceResults},</if>
+            <if test="maintenanceTime != null">maintenance_time = #{maintenanceTime},</if>
+            <if test="managementIp != null">management_ip = #{managementIp},</if>
+            <if test="maximumConnections != null">maximum_connections = #{maximumConnections},</if>
+            <if test="numberOfTunnels != null">number_of_tunnels = #{numberOfTunnels},</if>
+            <if test="operatingSystemVersionInformation != null">operating_system_version_information = #{operatingSystemVersionInformation},</if>
+            <if test="operationDepartment != null">operation_department = #{operationDepartment},</if>
+            <if test="protocolSupported != null">protocol_supported = #{protocolSupported},</if>
+            <if test="remarksInformation != null">remarks_information = #{remarksInformation},</if>
+            <if test="safetydeploymentMode != null">safetydeployment_mode = #{safetydeploymentMode},</if>
+            <if test="sellingLicense != null">selling_license = #{sellingLicense},</if>
+            <if test="serviceEndTime != null">service_end_time = #{serviceEndTime},</if>
+            <if test="serviceLevel != null">service_level = #{serviceLevel},</if>
+            <if test="serviceProvider != null">service_provider = #{serviceProvider},</if>
+            <if test="serviceStartTime != null">service_start_time = #{serviceStartTime},</if>
+            <if test="slotNo != null">slot_no = #{slotNo},</if>
+            <if test="stateSecretSupported != null">state_secret_supported = #{stateSecretSupported},</if>
+            <if test="supportIpv6 != null">support_ipv6 = #{supportIpv6},</if>
+            <if test="throughputRate != null">throughput_rate = #{throughputRate},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteVpnById" parameterType="Long">
+        delete from vpn where id = #{id}
+    </delete>
+
+    <delete id="deleteVpnByIds" parameterType="String">
+        delete from vpn where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+</mapper>

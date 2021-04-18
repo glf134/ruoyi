@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <th:block th:include="include :: header('负载均衡设备列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>设施标识符：</label>
+                                <input type="text" name="facilityDescriptor"/>
+                            </li>
+                            <li>
+                                <label>设施名称：</label>
+                                <input type="text" name="facilityName"/>
+                            </li>
+                            <li>
+                                <label>状态：</label>
+                                <select name="status">
+                                    <option value="">所有</option>
+                                    <option value="-1">代码生成请选择字典属性</option>
+                                </select>
+                            </li>
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+                <a class="btn btn-success" onclick="$.operate.add()" shiro:hasPermission="datasync:balancing:add">
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()" shiro:hasPermission="datasync:balancing:edit">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" shiro:hasPermission="datasync:balancing:remove">
+                    <i class="fa fa-remove"></i> 删除
+                </a>
+                <a class="btn btn-warning" onclick="$.table.exportExcel()" shiro:hasPermission="datasync:balancing:export">
+                    <i class="fa fa-download"></i> 导出
+                </a>
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = [[${@permission.hasPermi('datasync:balancing:edit')}]];
+        var removeFlag = [[${@permission.hasPermi('datasync:balancing:remove')}]];
+        var deployAreaDatas = [[${@dict.getType('administrative')}]];
+        var prefix = ctx + "datasync/balancing";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "负载均衡设备",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'id',
+                    title: '',
+                    visible: false
+                },
+                {
+                    field: 'administrativeDepartment',
+                    title: '管理部门'
+                },
+                {
+                    field: 'assetBrand',
+                    title: '设备品牌'
+                },
+                {
+                    field: 'assetCode',
+                    title: '资产编码'
+                },
+                {
+                    field: 'assetSerialNumber',
+                    title: '产品序列号'
+                },
+                {
+                    field: 'assetType',
+                    title: '设备型号'
+                },
+                {
+                    field: 'assetValue',
+                    title: '资产价值'
+                },
+                {
+                    field: 'belongCabinet',
+                    title: '所属机柜'
+                },
+                {
+                    field: 'brandLand',
+                    title: '品牌属地'
+                },
+                {
+                    field: 'deployArea',
+                    title: '部署区域',
+                    formatter: function(value, row, index) {
+                       return $.table.selectDictLabel(deployAreaDatas, value);
+                    }
+                },
+                {
+                    field: 'deployComputerRoom',
+                    title: '所属机房'
+                },
+                {
+                    field: 'deployDb',
+                    title: '部署数据中心'
+                },
+                {
+                    field: 'deployFloor',
+                    title: '所属楼层'
+                },
+                {
+                    field: 'deployGallery',
+                    title: '所属楼座'
+                },
+                {
+                    field: 'deploymentMode',
+                    title: '部署方式'
+                },
+                {
+                    field: 'deviceHeight',
+                    title: '设备高度'
+                },
+                {
+                    field: 'facilityCategory',
+                    title: '设施分类标识符'
+                },
+                {
+                    field: 'facilityDescriptor',
+                    title: '设施标识符'
+                },
+                {
+                    field: 'facilityName',
+                    title: '设施名称'
+                },
+                {
+                    field: 'facilityOwnershipAgency',
+                    title: '设施归属机构'
+                },
+                {
+                    field: 'facilityUpdateDate',
+                    title: '设施信息更新日期'
+                },
+                {
+                    field: 'facilityUseDate',
+                    title: '设施投产日期'
+                },
+                {
+                    field: 'facilityUseState',
+                    title: '设施在用状态'
+                },
+                {
+                    field: 'handlingCapacity',
+                    title: '吞吐量'
+                },
+                {
+                    field: 'influenceSystem',
+                    title: '影响系统'
+                },
+                {
+                    field: 'ipv6BasicProtocol',
+                    title: 'IPv6基础协议'
+                },
+                {
+                    field: 'maintenanceCause',
+                    title: '维修故障原因'
+                },
+                {
+                    field: 'maintenanceResults',
+                    title: '维修结果'
+                },
+                {
+                    field: 'maintenanceTime',
+                    title: '维修时间'
+                },
+                {
+                    field: 'managementIp',
+                    title: '管理IP地址'
+                },
+                {
+                    field: 'maximumNewConnectionRate',
+                    title: '最大新建连接速率'
+                },
+                {
+                    field: 'maximumNumberOfConcurrentConnections',
+                    title: '最大并发连接数'
+                },
+                {
+                    field: 'networkSecurityCapability',
+                    title: '网络安全能力'
+                },
+                {
+                    field: 'numberOfCards',
+                    title: '板卡数量'
+                },
+                {
+                    field: 'operatingSystemVersionInformation',
+                    title: '操作系统版本信息'
+                },
+                {
+                    field: 'operationDepartment',
+                    title: '运维部门'
+                },
+                {
+                    field: 'remarksInformation',
+                    title: '备注信息'
+                },
+                {
+                    field: 'serviceEndTime',
+                    title: '服务截止时间'
+                },
+                {
+                    field: 'serviceLevel',
+                    title: '服务级别'
+                },
+                {
+                    field: 'serviceProvider',
+                    title: '服务提供商'
+                },
+                {
+                    field: 'serviceStartTime',
+                    title: '服务开始时间'
+                },
+                {
+                    field: 'slotNo',
+                    title: '槽位号'
+                },
+                {
+                    field: 'supportIpv6',
+                    title: 'IPV6支持能力'
+                },
+                {
+                    field: 'wirelessFunction',
+                    title: '无线功能'
+                },
+                {
+                    field: 'status',
+                    title: '状态'
+                },
+                {
+                    title: '操作',
+                    align: 'center',
+                    formatter: function(value, row, index) {
+                        var actions = [];
+                        actions.push('<a class="btn btn-success btn-xs ' + editFlag + '" href="javascript:void(0)" onclick="$.operate.edit(\'' + row.id + '\')"><i class="fa fa-edit"></i>编辑</a> ');
+                        actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
+                        return actions.join('');
+                    }
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>
